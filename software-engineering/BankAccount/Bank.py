@@ -1,0 +1,38 @@
+class bank:
+    title = ""
+    
+
+    def __init__(self, title, customer_name, current_balance, minimum_balance):     
+        self.title = title
+        self.customer_name = customer_name
+        self.current_balance = current_balance
+        self.minimum_balance = minimum_balance
+
+    def deposit(self, amount):
+        if (amount.isdigit() == False or amount <= 0):
+            return "Enter valid number!"
+        self.current_balance += amount
+        return "Succesfully deposited $" + str(amount)
+    
+    def withdraw(self, amount):
+        if (amount.isdigit() == False or amount <= 0):
+            return "Enter valid number!"
+        
+        if ((self.current_balance-amount) < self.minimum_balance):
+            return "Remaining balance cannot be less than " + str(self.minimum_balance)
+
+        self.current_balance -= amount
+        return "Succesfully withdrawn $" + str(amount) + "\nRemaining balance: $" + str(self.current_balance)
+
+    def __str__(self):
+        total = "Bank: %s\nCustomer's Name: %s\nCurrent balance:%s\n" % (self.title, self.customer_name, self.current_balance)
+        return total
+    
+
+b1 = bank("Truist", "Jose", 10, 1)
+
+b2 = bank("Chase", "John", 100, 10)
+
+print(b1.deposit(100))
+print(b1.withdraw(50))
+
